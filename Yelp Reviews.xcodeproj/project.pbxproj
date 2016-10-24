@@ -7,21 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		70CD5CD01DBA9A0A00F74852 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CD5CCF1DBA9A0A00F74852 /* APIManager.swift */; };
+		70CECC331DBD98110088499E /* BusinessTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CECC321DBD98110088499E /* BusinessTableViewCell.swift */; };
+		70E8FBB81DBD7BF900C33E9E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70E8FBB71DBD7BF900C33E9E /* CoreLocation.framework */; };
 		70F95B321DB9BDFB00127CB9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F95B311DB9BDFB00127CB9 /* AppDelegate.swift */; };
-		70F95B341DB9BDFB00127CB9 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F95B331DB9BDFB00127CB9 /* ViewController.swift */; };
 		70F95B371DB9BDFB00127CB9 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70F95B351DB9BDFB00127CB9 /* Main.storyboard */; };
 		70F95B391DB9BDFB00127CB9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 70F95B381DB9BDFB00127CB9 /* Assets.xcassets */; };
 		70F95B3C1DB9BDFB00127CB9 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 70F95B3A1DB9BDFB00127CB9 /* LaunchScreen.storyboard */; };
+		70F95B441DB9BE7000127CB9 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70F95B431DB9BE7000127CB9 /* ListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		70CD5CCF1DBA9A0A00F74852 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
+		70CECC321DBD98110088499E /* BusinessTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessTableViewCell.swift; sourceTree = "<group>"; };
+		70E8FBB71DBD7BF900C33E9E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		70F95B2E1DB9BDFB00127CB9 /* Yelp Reviews.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Yelp Reviews.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		70F95B311DB9BDFB00127CB9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		70F95B331DB9BDFB00127CB9 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		70F95B361DB9BDFB00127CB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		70F95B381DB9BDFB00127CB9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		70F95B3B1DB9BDFB00127CB9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		70F95B3D1DB9BDFB00127CB9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		70F95B431DB9BE7000127CB9 /* ListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,17 +35,27 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				70E8FBB81DBD7BF900C33E9E /* CoreLocation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		70E8FBB61DBD7BF900C33E9E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				70E8FBB71DBD7BF900C33E9E /* CoreLocation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		70F95B251DB9BDFA00127CB9 = {
 			isa = PBXGroup;
 			children = (
 				70F95B301DB9BDFB00127CB9 /* Yelp Reviews */,
 				70F95B2F1DB9BDFB00127CB9 /* Products */,
+				70E8FBB61DBD7BF900C33E9E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -55,8 +71,10 @@
 			isa = PBXGroup;
 			children = (
 				70F95B311DB9BDFB00127CB9 /* AppDelegate.swift */,
-				70F95B331DB9BDFB00127CB9 /* ViewController.swift */,
 				70F95B351DB9BDFB00127CB9 /* Main.storyboard */,
+				70CECC321DBD98110088499E /* BusinessTableViewCell.swift */,
+				70CD5CCF1DBA9A0A00F74852 /* APIManager.swift */,
+				70F95B431DB9BE7000127CB9 /* ListViewController.swift */,
 				70F95B381DB9BDFB00127CB9 /* Assets.xcassets */,
 				70F95B3A1DB9BDFB00127CB9 /* LaunchScreen.storyboard */,
 				70F95B3D1DB9BDFB00127CB9 /* Info.plist */,
@@ -137,7 +155,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				70F95B341DB9BDFB00127CB9 /* ViewController.swift in Sources */,
+				70CD5CD01DBA9A0A00F74852 /* APIManager.swift in Sources */,
+				70CECC331DBD98110088499E /* BusinessTableViewCell.swift in Sources */,
+				70F95B441DB9BE7000127CB9 /* ListViewController.swift in Sources */,
 				70F95B321DB9BDFB00127CB9 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -302,6 +322,7 @@
 				70F95B421DB9BDFB00127CB9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
