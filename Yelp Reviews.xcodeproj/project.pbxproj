@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		709107741DBFADB2002AB5B1 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709107731DBFADB2002AB5B1 /* DetailsViewController.swift */; };
+		70B53F261DBED00C0000AD5D /* SelectSortCriteriaTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B53F251DBED00C0000AD5D /* SelectSortCriteriaTableViewController.swift */; };
 		70CD5CD01DBA9A0A00F74852 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CD5CCF1DBA9A0A00F74852 /* APIManager.swift */; };
 		70CECC331DBD98110088499E /* BusinessTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CECC321DBD98110088499E /* BusinessTableViewCell.swift */; };
 		70E8FBB81DBD7BF900C33E9E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 70E8FBB71DBD7BF900C33E9E /* CoreLocation.framework */; };
@@ -18,6 +20,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		709107731DBFADB2002AB5B1 /* DetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
+		70B53F251DBED00C0000AD5D /* SelectSortCriteriaTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectSortCriteriaTableViewController.swift; sourceTree = "<group>"; };
 		70CD5CCF1DBA9A0A00F74852 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		70CECC321DBD98110088499E /* BusinessTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessTableViewCell.swift; sourceTree = "<group>"; };
 		70E8FBB71DBD7BF900C33E9E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -72,6 +76,8 @@
 			children = (
 				70F95B311DB9BDFB00127CB9 /* AppDelegate.swift */,
 				70F95B351DB9BDFB00127CB9 /* Main.storyboard */,
+				709107731DBFADB2002AB5B1 /* DetailsViewController.swift */,
+				70B53F251DBED00C0000AD5D /* SelectSortCriteriaTableViewController.swift */,
 				70CECC321DBD98110088499E /* BusinessTableViewCell.swift */,
 				70CD5CCF1DBA9A0A00F74852 /* APIManager.swift */,
 				70F95B431DB9BE7000127CB9 /* ListViewController.swift */,
@@ -156,9 +162,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				70CD5CD01DBA9A0A00F74852 /* APIManager.swift in Sources */,
+				70B53F261DBED00C0000AD5D /* SelectSortCriteriaTableViewController.swift in Sources */,
 				70CECC331DBD98110088499E /* BusinessTableViewCell.swift in Sources */,
 				70F95B441DB9BE7000127CB9 /* ListViewController.swift in Sources */,
 				70F95B321DB9BDFB00127CB9 /* AppDelegate.swift in Sources */,
+				709107741DBFADB2002AB5B1 /* DetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

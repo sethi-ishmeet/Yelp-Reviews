@@ -52,7 +52,7 @@ class APIManager {
         task.resume()
     }
     
-    func searchYelp(parameter: String, location: CLLocation, completion: @escaping (NSDictionary?, NSError?) -> Void) {
+    func searchYelp(parameter: String, sort_by: String, location: CLLocation, completion: @escaping (NSDictionary?, NSError?) -> Void) {
         let limit = "10"
         let locale = "en_CA"
         let apiError = NSError(domain: "Could not obtain business information from Yelp server.", code: 300, userInfo: nil)
@@ -65,10 +65,10 @@ class APIManager {
                     completion(nil, tokenError)
                     return
                 }
-                self.searchYelp(parameter: parameter, location: location, completion: completion)
+                self.searchYelp(parameter: parameter, sort_by: sort_by, location: location, completion: completion)
             })
         } else {
-            let searchString = "?term=" + parameter + "&latitude=" + String(location.coordinate.latitude) + "&longitude=" + String(location.coordinate.longitude) + "&locale=" + locale + "&limit=" + limit
+            let searchString = "?term=" + parameter + "&latitude=" + String(location.coordinate.latitude) + "&longitude=" + String(location.coordinate.longitude) + "&locale=" + locale + "&limit=" + limit + "&sort_by=" + sort_by
             let url = URL(string: "https://api.yelp.com/v3/businesses/search" + searchString)
             let request = NSMutableURLRequest(url: url!)
             request.httpMethod = "GET"
@@ -96,5 +96,9 @@ class APIManager {
                 }
             }).resume()
         }
+    }
+    
+    func getAccessToken() -> String {
+        return access_token
     }
 }

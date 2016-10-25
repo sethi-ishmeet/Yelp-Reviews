@@ -16,4 +16,13 @@ class BusinessTableViewCell: UITableViewCell {
     @IBOutlet var lblPrice: UILabel!
     @IBOutlet var lblCategory: UILabel!
     @IBOutlet var lblDistance: UILabel!
+    @IBOutlet var lblReviewCount: UILabel!
+    
+    
+    @IBOutlet var imgStar1: UIImageView!
+    @IBOutlet var imgStar2: UIImageView!
+    @IBOutlet var imgStar3: UIImageView!
+    @IBOutlet var imgStar4: UIImageView!
+    @IBOutlet var imgStar5: UIImageView!
+    
 }
