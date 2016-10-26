@@ -46,7 +46,7 @@ class APIManager {
                 completionHandler(nil)
                 return
             } catch let err as NSError {
-                print(err)
+//                print(err)
                 completionHandler(apiError)
                 return
             }
@@ -62,7 +62,7 @@ class APIManager {
         if access_token == nil {
             getAccessToken(completionHandler: { (tokenError) in
                 if (tokenError != nil) {
-                    print("error in access token retrieval")
+//                    print("error in access token retrieval")
                     completion(nil, tokenError)
                     return
                 }
@@ -76,7 +76,7 @@ class APIManager {
             request.addValue("Bearer " + self.access_token, forHTTPHeaderField: "Authorization")
             URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) in
                 if error != nil {
-                    print("error in search data task")
+//                    print("error in search data task")
                     completion(nil, error as NSError?)
                     return
                 }
@@ -92,7 +92,7 @@ class APIManager {
                     completion(businesses, nil)
                     return
                 } catch let err as NSError {
-                    print(err)
+//                    print(err)
                     completion(nil, err)
                     return
                 }
@@ -202,14 +202,14 @@ class APIManager {
         request.addValue("Bearer " + self.access_token, forHTTPHeaderField: "Authorization")
         URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) in
             if error != nil {
-                print("error in search data task")
+//                print("error in search data task")
                 completion(nil, error as NSError?)
                 return
             }
             
             do {
                 let json = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments) as! NSDictionary
-                print(json)
+//                print(json)
                 guard let _ = json["id"] else {
                     completion(nil, apiError)
                     return
@@ -279,7 +279,7 @@ class APIManager {
                 completion(business, nil)
                 return
             } catch let err as NSError {
-                print(err)
+//                print(err)
                 completion(nil, err)
                 return
             }
@@ -295,14 +295,14 @@ class APIManager {
         request.addValue("Bearer " + self.access_token, forHTTPHeaderField: "Authorization")
         URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) in
             if error != nil {
-                print("error in review data task")
+//                print("error in review data task")
                 completion(nil, error as NSError?)
                 return
             }
             
             do {
                 let json = try JSONSerialization.jsonObject(with: data!, options: JSONSerialization.ReadingOptions.allowFragments) as! NSDictionary
-                print(json)
+//                print(json)
                 guard let _ = json["reviews"] else {
                     completion(nil, apiError)
                     return
@@ -343,7 +343,7 @@ class APIManager {
                 completion(business, nil)
                 return
             } catch let err as NSError {
-                print(err)
+//                print(err)
                 completion(nil, err)
                 return
             }

@@ -81,7 +81,7 @@ class DetailsViewController: UIViewController {
         
         apiManager.searchYelpReviews(business: business, delegate: self) { (result, error) in
             if error != nil {
-                print("error in review")
+//                print("error in review")
                 return
             }
             
@@ -355,7 +355,7 @@ extension DetailsViewController : UITableViewDelegate, UITableViewDataSource {
             }
             cellIdentifiers.append(reviewIdentifiers)
         }
-        print(cellIdentifiers)
+//        print(cellIdentifiers)
     }
     
     

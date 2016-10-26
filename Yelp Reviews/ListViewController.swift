@@ -54,14 +54,14 @@ class ListViewController: UIViewController {
         isSearchingYelp = true
         apiManager.searchYelp(parameter: term, sort_by: sort_by, location: location, delegate: self) { (result, error) in
             if error != nil {
-                print("error")
-                print(error)
+//                print("error")
+//                print(error)
                 DispatchQueue.main.async {
                     self.showErrorMessage()
                 }
                 return
             }
-            print(result)
+//            print(result)
             
             if result?.count == 0 {
                 DispatchQueue.main.async {
@@ -206,7 +206,7 @@ extension ListViewController : UISearchBarDelegate {
         autoCompleteResults.removeAll()
         autoCompleteDataTask = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) in
             if error != nil {
-                print("error in autocomplete data task")
+//                print("error in autocomplete data task")
                 self.isSearchActive = false
                 DispatchQueue.main.async {
                     self.searchBar.resignFirstResponder()
@@ -238,7 +238,7 @@ extension ListViewController : UISearchBarDelegate {
                 
                 return
             } catch let err as NSError {
-                print(err)
+//                print(err)
                 return
             }
         })

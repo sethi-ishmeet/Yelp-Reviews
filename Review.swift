@@ -36,14 +36,14 @@ class Review {
     
     func downloadFrom(link: String, completion: @escaping (UIImage) -> Void) {
         guard let url = URL(string: link) else {
-            print("image url error")
+//            print("image url error")
             completion(#imageLiteral(resourceName: "imageNA"))
             return
         }
         
         URLSession.shared.dataTask(with: url) { (data, response, error) in
             if error != nil {
-                print("photo data task error")
+//                print("photo data task error")
                 completion(#imageLiteral(resourceName: "imageNA"))
                 return
             }

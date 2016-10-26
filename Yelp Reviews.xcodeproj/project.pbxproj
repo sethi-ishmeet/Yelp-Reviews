@@ -76,6 +76,26 @@
 			name = UITableViewCells;
 			sourceTree = "<group>";
 		};
+		70B89DC51DC0740E00702E5E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				703AC7851DBFE24000C81816 /* Business.swift */,
+				703AC78B1DC02DBE00C81816 /* Review.swift */,
+				70CD5CCF1DBA9A0A00F74852 /* APIManager.swift */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		70B89DC61DC0742100702E5E /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				709107731DBFADB2002AB5B1 /* DetailsViewController.swift */,
+				70B53F251DBED00C0000AD5D /* SelectSortCriteriaTableViewController.swift */,
+				70F95B431DB9BE7000127CB9 /* ListViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
 		70E8FBB61DBD7BF900C33E9E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -104,15 +124,11 @@
 		70F95B301DB9BDFB00127CB9 /* Yelp Reviews */ = {
 			isa = PBXGroup;
 			children = (
+				70B89DC61DC0742100702E5E /* View Controllers */,
+				70B89DC51DC0740E00702E5E /* Models */,
 				703AC77E1DBFD32D00C81816 /* UITableViewCells */,
 				70F95B311DB9BDFB00127CB9 /* AppDelegate.swift */,
 				70F95B351DB9BDFB00127CB9 /* Main.storyboard */,
-				709107731DBFADB2002AB5B1 /* DetailsViewController.swift */,
-				70B53F251DBED00C0000AD5D /* SelectSortCriteriaTableViewController.swift */,
-				70CD5CCF1DBA9A0A00F74852 /* APIManager.swift */,
-				703AC7851DBFE24000C81816 /* Business.swift */,
-				703AC78B1DC02DBE00C81816 /* Review.swift */,
-				70F95B431DB9BE7000127CB9 /* ListViewController.swift */,
 				70F95B381DB9BDFB00127CB9 /* Assets.xcassets */,
 				70F95B3A1DB9BDFB00127CB9 /* LaunchScreen.storyboard */,
 				70F95B3D1DB9BDFB00127CB9 /* Info.plist */,
