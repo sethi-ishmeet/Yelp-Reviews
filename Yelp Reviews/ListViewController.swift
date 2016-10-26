@@ -20,14 +20,15 @@ class ListViewController: UIViewController {
     var retryTapGestureRecognizer: UITapGestureRecognizer!
     
     var isSearchActive: Bool = false
-    var businesses = [NSDictionary]()
+    var businesses = [Business]()
     var autoCompleteResults = [[NSDictionary]]()
     let apiManager = APIManager()
     var locationManager: CLLocationManager!
     var autoCompleteDataTask: URLSessionDataTask!
     let autoCompleteHeaders: [String] = ["Terms", "Businesses", "Categories"]
-    var searchTerm = "chinese"
+    var searchTerm = "ethiopian"
     let defaultSortBy = "best_match"
+    var business: Business!
     
     // default to 88 Queen's Quay W location
     var location = CLLocation(latitude: CLLocationDegrees(floatLiteral: 43.6411095), longitude: CLLocationDegrees(floatLiteral: -79.3786642))
@@ -40,6 +41,9 @@ class ListViewController: UIViewController {
         businesses.removeAll()
         
         listTableView.tableFooterView = UIView()
+        listTableView.rowHeight = UITableViewAutomaticDimension
+        listTableView.estimatedRowHeight = 40.0
+        
         navigationController?.navigationBar.isTranslucent = false
         
         retrieveLocation()
@@ -48,7 +52,7 @@ class ListViewController: UIViewController {
     func searchYelp(term: String, sort_by: String) {
         showActivityIndicator()
         isSearchingYelp = true
-        apiManager.searchYelp(parameter: term, sort_by: sort_by, location: location) { (result, error) in
+        apiManager.searchYelp(parameter: term, sort_by: sort_by, location: location, delegate: self) { (result, error) in
             if error != nil {
                 print("error")
                 print(error)
@@ -59,11 +63,17 @@ class ListViewController: UIViewController {
             }
             print(result)
             
-            self.businesses.removeAll()
-            self.businesses = result?["businesses"] as! [NSDictionary]
-            DispatchQueue.main.async {
-                self.hideActivityIndicator()
-                self.listTableView.reloadData()
+            if result?.count == 0 {
+                DispatchQueue.main.async {
+                    self.showNoResultsMessage()
+                }
+            } else {
+                self.businesses.removeAll()
+                self.businesses = result!
+                DispatchQueue.main.async {
+                    self.hideActivityIndicator()
+                    self.listTableView.reloadData()
+                }
             }
         }
     }
@@ -72,14 +82,27 @@ class ListViewController: UIViewController {
         searchBar = UISearchBar()
         searchBar.sizeToFit()
         searchBar.placeholder = "Search Here"
-        
         searchBar.isTranslucent = false
         searchBar.searchBarStyle = .prominent
         searchBar.barTintColor = UIColor(red: 255 / 255 , green: 127 / 255, blue: 0 / 255, alpha: 0.5)
-        
         searchBar.delegate = self
         searchBar.returnKeyType = .done
         self.navigationItem.titleView = searchBar
+    }
+    
+    func showNoResultsMessage() {
+        lblErrorTitle.text = "Oops. No Results found for searched term."
+        lblErrorMessage.text = "Please try a different search."
+        lblErrorMessage.isHidden = false
+        lblErrorTitle.isHidden = false
+        activityIndicator.stopAnimating()
+    }
+    
+    func hideNoResultMessage() {
+        lblErrorMessage.isHidden = true
+        lblErrorTitle.isHidden = true
+        lblErrorTitle.text = "Oops. We are currently unable to fetch data."
+        lblErrorMessage.text = "Tap to try again"
     }
     
     func showActivityIndicator() {
@@ -124,6 +147,12 @@ class ListViewController: UIViewController {
             let dest = (segue.destination as! UINavigationController).viewControllers.first as! SelectSortCriteriaTableViewController
             dest.delegate = self
         }
+        
+        if segue.identifier == "showBusinessDetails" {
+            let destination = segue.destination as! DetailsViewController
+            destination.apiManager = self.apiManager
+            destination.business = self.business
+        }
     }
     @IBAction func btnSort_Click(_ sender: AnyObject) {
         self.performSegue(withIdentifier: "showSortCriteria", sender: self)
@@ -134,7 +163,8 @@ class ListViewController: UIViewController {
 // UISearchBar delegate and helper Methods
 extension ListViewController : UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        isSearchActive = true
+//        isSearchActive = true
+        hideNoResultMessage()
         searchBar.setShowsCancelButton(true, animated: true)
     }
     
@@ -161,18 +191,27 @@ extension ListViewController : UISearchBarDelegate {
         let url = URL(string: "https://api.yelp.com/v3/autocomplete" + searchString.replacingOccurrences(of: " ", with: ""))
         let request = NSMutableURLRequest(url: url!)
         request.httpMethod = "GET"
-        request.addValue("Bearer " + apiManager.getAccessToken(), forHTTPHeaderField: "Authorization")
+        
+        if apiManager.getAccessToken() == nil {
+            self.showErrorMessage()
+            return
+        }
+        
+        request.addValue("Bearer " + apiManager.getAccessToken()!, forHTTPHeaderField: "Authorization")
         
         if autoCompleteDataTask != nil {
             autoCompleteDataTask.suspend()
         }
+        
         autoCompleteResults.removeAll()
         autoCompleteDataTask = URLSession.shared.dataTask(with: request as URLRequest, completionHandler: { (data, response, error) in
             if error != nil {
                 print("error in autocomplete data task")
                 self.isSearchActive = false
                 DispatchQueue.main.async {
-                    self.listTableView.reloadData()
+                    self.searchBar.resignFirstResponder()
+                    self.showErrorMessage()
+//                    self.listTableView.reloadData()
                 }
                 return
             }
@@ -242,17 +281,42 @@ extension ListViewController : UITableViewDataSource, UITableViewDelegate {
             // revisit this to perform better search for business
             if let _ = autoCompleteResults[indexPath.section][indexPath.row]["name"] as? String {
                 searchTerm = autoCompleteResults[indexPath.section][indexPath.row]["id"] as! String
-                searchYelp(term: autoCompleteResults[indexPath.section][indexPath.row]["id"] as! String, sort_by: defaultSortBy)
+                self.showActivityIndicator()
+                
+                let bus = Business()
+                bus.id = autoCompleteResults[indexPath.section][indexPath.row]["id"] as! String
+                
+                apiManager.searchYelpBusiness(business: bus, completion: { (result, error) in
+                    if error != nil {
+                        DispatchQueue.main.async {
+                            self.showNoResultsMessage()
+                        }
+                        return
+                    }
+                    self.business = result
+                    
+                    DispatchQueue.main.async {
+                        self.searchBar.resignFirstResponder()
+                        self.hideActivityIndicator()
+                        self.performSegue(withIdentifier: "showBusinessDetails", sender: self)
+                    }
+                    return
+                    
+                })
+//                searchYelp(term: autoCompleteResults[indexPath.section][indexPath.row]["id"] as! String, sort_by: defaultSortBy)
             }
             
             if let _ = autoCompleteResults[indexPath.section][indexPath.row]["title"] as? String {
                 searchTerm = autoCompleteResults[indexPath.section][indexPath.row]["alias"] as! String
                 searchYelp(term: autoCompleteResults[indexPath.section][indexPath.row]["alias"] as! String, sort_by: defaultSortBy)
             }
+            
             self.searchBar.resignFirstResponder()
             return
         }
         
+        searchBar.resignFirstResponder()
+        self.business = businesses[indexPath.row]
         self.performSegue(withIdentifier: "showBusinessDetails", sender: self)
         return
     }
@@ -277,25 +341,25 @@ extension ListViewController : UITableViewDataSource, UITableViewDelegate {
         }
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "business")! as! BusinessTableViewCell
-        cell.lblBusinessName.text = (businesses[indexPath.row]["name"] as! String)
-        cell.lblPrice.text = businesses[indexPath.row]["price"] as? String
-        cell.businessImage.downloadFrom(link: businesses[indexPath.row]["image_url"] as! String)
-        cell.lblBusinessAddress.text = getAddress(address: businesses[indexPath.row]["location"] as! NSDictionary)
-        cell.lblCategory.text = getCategories(categories: businesses[indexPath.row]["categories"] as! [NSDictionary])
-        if let coordinates = businesses[indexPath.row]["coordinates"] as? NSDictionary {
+        
+        cell.id = businesses[indexPath.row].id
+        cell.lblBusinessName.text = businesses[indexPath.row].Name
+        cell.lblPrice.text = businesses[indexPath.row].price
+        
+        cell.businessImage.image = businesses[indexPath.row].image
+        cell.businessImage.layer.cornerRadius = 5.0
+        cell.businessImage.layer.masksToBounds = true
+        
+        cell.lblBusinessAddress.text = businesses[indexPath.row].address
+        cell.lblCategory.text = businesses[indexPath.row].categories
+        
+        if let coordinates = businesses[indexPath.row].location {
             cell.lblDistance.text = getDistance(coordinates: coordinates)
         }
-        getStarRating(cell: cell, rating: businesses[indexPath.row]["rating"] as! Double)
-        cell.lblReviewCount.text = String(businesses[indexPath.row]["review_count"] as! Int) + " Reviews"
+        getStarRating(cell: cell, rating: businesses[indexPath.row].rating)
+        cell.lblReviewCount.text = String(businesses[indexPath.row].review_count) + " Reviews"
         
         return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        if isSearchActive {
-            return 44.0
-        }
-        return 125.0
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -348,15 +412,15 @@ extension ListViewController : UITableViewDataSource, UITableViewDelegate {
         }
     }
     
-    func getAddress(address: NSDictionary) -> String {
-        var addressString = ""
-        if let _ = address["address1"] as? String {
-            addressString += address["address1"] as! String
-        }
-        
-        if let _ = address["city"] as? String {
-            addressString += ", " + (address["city"] as! String)
-        }
+//    func getAddress(address: NSDictionary) -> String {
+//        var addressString = ""
+//        if let _ = address["address1"] as? String {
+//            addressString += address["address1"] as! String
+//        }
+//        
+//        if let _ = address["city"] as? String {
+//            addressString += ", " + (address["city"] as! String)
+//        }
 //        
 //        if let _ = address["state"] as? String {
 //            addressString += ", " + address["state"] as! String
@@ -369,20 +433,12 @@ extension ListViewController : UITableViewDataSource, UITableViewDelegate {
 //        if let _ = address["zip_code"] as? String {
 //            addressString += " " + address["zip_code"] as! String
 //        }
-        return addressString
-    }
+//        return addressString
+//    }
     
-    func getCategories(categories: [NSDictionary]) -> String {
-        var catText = ""
-        for category in categories {
-            catText += category["title"] as! String + ", "
-        }
-        return catText.substring(to: catText.index(catText.endIndex, offsetBy: String.IndexDistance.init(exactly: -2)!))
-    }
-    
-    func getDistance(coordinates: NSDictionary) -> String {
-        let businessLocation = CLLocation(latitude: CLLocationDegrees(floatLiteral: coordinates["latitude"] as! Double), longitude: CLLocationDegrees(floatLiteral: coordinates["longitude"] as! Double))
-        let distance = businessLocation.distance(from: location) / 1000
+    func getDistance(coordinates: CLLocation) -> String {
+        //let businessLocation = CLLocation(latitude: CLLocationDegrees(floatLiteral: coordinates["latitude"] as! Double), longitude: CLLocationDegrees(floatLiteral: coordinates["longitude"] as! Double))
+        let distance = coordinates.distance(from: location) / 1000
         let rounded = Double(round(distance * 10) / 10)
         return String(rounded) + " km"
     }
@@ -430,7 +486,7 @@ extension ListViewController : SortCriteriaTableViewControllerDelegate {
     func didSelectSortCriteria(type: String) {
         if type == "review_count" {
             businesses.sort(by: { (a, b) -> Bool in
-                return (a["review_count"] as! Int) > (b["review_count"] as! Int)
+                return a.review_count > b.review_count
             })
             self.listTableView.reloadData()
             return
@@ -438,44 +494,59 @@ extension ListViewController : SortCriteriaTableViewControllerDelegate {
         
         if type == "rating" {
             businesses.sort(by: { (a, b) -> Bool in
-                return (a["rating"] as! Double) > (b["rating"] as! Double)
+                return a.rating > b.rating
             })
             self.listTableView.reloadData()
             return
         }
-        
         searchYelp(term: searchTerm, sort_by: type)
-        
     }
     
     
 }
+
+
+// Business Class delegate method
+extension ListViewController : BusinessClassDelegate {
+    func didUpdateBusinessImage(id: String) {
+        for cell in listTableView.visibleCells {
+            if (cell as! BusinessTableViewCell).id == id && listTableView.indexPath(for: cell) != nil {
+                listTableView.beginUpdates()
+                listTableView.reloadRows(at: [listTableView.indexPath(for: cell)!], with: .none)
+                listTableView.endUpdates()
+            }
+        }
+    }
+}
+
+
+
 
 
 // UIImageView Extension to download image from the given link
-extension UIImageView {
-    func downloadFrom(link: String) {
-        guard let url = URL(string: link) else {
-            print("image url error")
-            self.image = #imageLiteral(resourceName: "imageNA")
-            self.layer.cornerRadius = 5.0
-            self.layer.masksToBounds = true
-            return
-        }
-        
-        URLSession.shared.dataTask(with: url) { (data, response, error) in
-            if error != nil {
-                print("photo data task error")
-                self.image = #imageLiteral(resourceName: "imageNA")
-                self.layer.cornerRadius = 5.0
-                self.layer.masksToBounds = true
-                return
-            }
-            DispatchQueue.main.async {
-                self.image = UIImage(data: data!)
-                self.layer.cornerRadius = 5.0
-                self.layer.masksToBounds = true
-            }
-        }.resume()
-    }
-}
+//extension UIImageView {
+//    func downloadFrom(link: String) {
+//        guard let url = URL(string: link) else {
+//            print("image url error")
+//            self.image = #imageLiteral(resourceName: "imageNA")
+//            self.layer.cornerRadius = 5.0
+//            self.layer.masksToBounds = true
+//            return
+//        }
+//        
+//        URLSession.shared.dataTask(with: url) { (data, response, error) in
+//            if error != nil {
+//                print("photo data task error")
+//                self.image = #imageLiteral(resourceName: "imageNA")
+//                self.layer.cornerRadius = 5.0
+//                self.layer.masksToBounds = true
+//                return
+//            }
+//            DispatchQueue.main.async {
+//                self.image = UIImage(data: data!)
+//                self.layer.cornerRadius = 5.0
+//                self.layer.masksToBounds = true
+//            }
+//        }.resume()
+//    }
+//}

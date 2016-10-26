@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		703AC7801DBFD36D00C81816 /* BasicDetailsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703AC77F1DBFD36D00C81816 /* BasicDetailsTableViewCell.swift */; };
+		703AC7821DBFD38800C81816 /* AddressTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703AC7811DBFD38800C81816 /* AddressTableViewCell.swift */; };
+		703AC7841DBFD3A900C81816 /* HoursTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703AC7831DBFD3A900C81816 /* HoursTableViewCell.swift */; };
+		703AC7861DBFE24000C81816 /* Business.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703AC7851DBFE24000C81816 /* Business.swift */; };
+		703AC7881DC0261200C81816 /* BusinessPhotosTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703AC7871DC0261200C81816 /* BusinessPhotosTableViewCell.swift */; };
+		703AC78A1DC028DE00C81816 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703AC7891DC028DE00C81816 /* PhotoCollectionViewCell.swift */; };
+		703AC78C1DC02DBE00C81816 /* Review.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703AC78B1DC02DBE00C81816 /* Review.swift */; };
+		703AC78E1DC031FC00C81816 /* ReviewTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 703AC78D1DC031FC00C81816 /* ReviewTableViewCell.swift */; };
 		709107741DBFADB2002AB5B1 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 709107731DBFADB2002AB5B1 /* DetailsViewController.swift */; };
 		70B53F261DBED00C0000AD5D /* SelectSortCriteriaTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70B53F251DBED00C0000AD5D /* SelectSortCriteriaTableViewController.swift */; };
 		70CD5CD01DBA9A0A00F74852 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 70CD5CCF1DBA9A0A00F74852 /* APIManager.swift */; };
@@ -20,6 +28,14 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		703AC77F1DBFD36D00C81816 /* BasicDetailsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BasicDetailsTableViewCell.swift; sourceTree = "<group>"; };
+		703AC7811DBFD38800C81816 /* AddressTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddressTableViewCell.swift; sourceTree = "<group>"; };
+		703AC7831DBFD3A900C81816 /* HoursTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HoursTableViewCell.swift; sourceTree = "<group>"; };
+		703AC7851DBFE24000C81816 /* Business.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Business.swift; sourceTree = "<group>"; };
+		703AC7871DC0261200C81816 /* BusinessPhotosTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BusinessPhotosTableViewCell.swift; sourceTree = "<group>"; };
+		703AC7891DC028DE00C81816 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		703AC78B1DC02DBE00C81816 /* Review.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Review.swift; path = ../Review.swift; sourceTree = "<group>"; };
+		703AC78D1DC031FC00C81816 /* ReviewTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReviewTableViewCell.swift; sourceTree = "<group>"; };
 		709107731DBFADB2002AB5B1 /* DetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		70B53F251DBED00C0000AD5D /* SelectSortCriteriaTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectSortCriteriaTableViewController.swift; sourceTree = "<group>"; };
 		70CD5CCF1DBA9A0A00F74852 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
@@ -46,6 +62,20 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		703AC77E1DBFD32D00C81816 /* UITableViewCells */ = {
+			isa = PBXGroup;
+			children = (
+				703AC78D1DC031FC00C81816 /* ReviewTableViewCell.swift */,
+				703AC7871DC0261200C81816 /* BusinessPhotosTableViewCell.swift */,
+				703AC7891DC028DE00C81816 /* PhotoCollectionViewCell.swift */,
+				703AC77F1DBFD36D00C81816 /* BasicDetailsTableViewCell.swift */,
+				703AC7811DBFD38800C81816 /* AddressTableViewCell.swift */,
+				703AC7831DBFD3A900C81816 /* HoursTableViewCell.swift */,
+				70CECC321DBD98110088499E /* BusinessTableViewCell.swift */,
+			);
+			name = UITableViewCells;
+			sourceTree = "<group>";
+		};
 		70E8FBB61DBD7BF900C33E9E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -74,12 +104,14 @@
 		70F95B301DB9BDFB00127CB9 /* Yelp Reviews */ = {
 			isa = PBXGroup;
 			children = (
+				703AC77E1DBFD32D00C81816 /* UITableViewCells */,
 				70F95B311DB9BDFB00127CB9 /* AppDelegate.swift */,
 				70F95B351DB9BDFB00127CB9 /* Main.storyboard */,
 				709107731DBFADB2002AB5B1 /* DetailsViewController.swift */,
 				70B53F251DBED00C0000AD5D /* SelectSortCriteriaTableViewController.swift */,
-				70CECC321DBD98110088499E /* BusinessTableViewCell.swift */,
 				70CD5CCF1DBA9A0A00F74852 /* APIManager.swift */,
+				703AC7851DBFE24000C81816 /* Business.swift */,
+				703AC78B1DC02DBE00C81816 /* Review.swift */,
 				70F95B431DB9BE7000127CB9 /* ListViewController.swift */,
 				70F95B381DB9BDFB00127CB9 /* Assets.xcassets */,
 				70F95B3A1DB9BDFB00127CB9 /* LaunchScreen.storyboard */,
@@ -161,11 +193,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				703AC7881DC0261200C81816 /* BusinessPhotosTableViewCell.swift in Sources */,
 				70CD5CD01DBA9A0A00F74852 /* APIManager.swift in Sources */,
+				703AC7801DBFD36D00C81816 /* BasicDetailsTableViewCell.swift in Sources */,
+				703AC7841DBFD3A900C81816 /* HoursTableViewCell.swift in Sources */,
+				703AC7861DBFE24000C81816 /* Business.swift in Sources */,
+				703AC78E1DC031FC00C81816 /* ReviewTableViewCell.swift in Sources */,
+				703AC78A1DC028DE00C81816 /* PhotoCollectionViewCell.swift in Sources */,
 				70B53F261DBED00C0000AD5D /* SelectSortCriteriaTableViewController.swift in Sources */,
 				70CECC331DBD98110088499E /* BusinessTableViewCell.swift in Sources */,
+				703AC78C1DC02DBE00C81816 /* Review.swift in Sources */,
 				70F95B441DB9BE7000127CB9 /* ListViewController.swift in Sources */,
 				70F95B321DB9BDFB00127CB9 /* AppDelegate.swift in Sources */,
+				703AC7821DBFD38800C81816 /* AddressTableViewCell.swift in Sources */,
 				709107741DBFADB2002AB5B1 /* DetailsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
